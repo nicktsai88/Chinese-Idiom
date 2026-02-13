@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成語大師學習總部</title>
+    <!-- 引入 Noto Serif TC (明體) 用於標題，Noto Sans TC (黑體) 用於內文 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* 國文主題配色：水墨與硃砂 */
+            --bg: #f9f7f2;            /* 背景：米白宣紙色 */
+            --text-main: #2c2c2c;     /* 主字色：墨黑 */
+            --card-bg: #ffffff;
+            
+            /* 冊別顏色區分 */
+            --vol3-color: #00897b;    /* 第3冊：青瓷綠 */
+            --vol3-light: #e0f2f1;    /* 第3冊淡色背景 */
+            
+            --vol4-color: #c62828;    /* 第4冊：朱砂紅 */
+            --vol4-light: #ffebee;    /* 第4冊淡色背景 */
+
+            --vol5-color: #1565c0;    /* 第5冊：景泰藍 */
+            --vol5-light: #e3f2fd;    /* 第5冊淡色背景 */
+
+            --vol6-color: #6a1b9a;    /* 第6冊：紫羅蘭 */
+            --vol6-light: #f3e5f5;    /* 第6冊淡色背景 */
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--bg);
+            /* 加入淡淡的紙張紋理感 */
+            background-image: radial-gradient(#e0e0e0 1px, transparent 1px);
+            background-size: 20px 20px;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-main);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            max-width: 800px;
+        }
+
+        .header h1 {
+            font-family: 'Noto Serif TC', serif; /* 標題使用明體 */
+            color: var(--text-main);
+            font-size: 3em;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+        }
+
+        .header p {
+            color: #5d4037; /* 深褐色文字 */
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        /* 返回按鈕樣式 - 改為紫金漸層，象徵尊貴與智慧 */
+        .home-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #512da8 0%, #673ab7 100%);
+            color: white;
+            padding: 12px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            box-shadow: 0 4px 15px rgba(103, 58, 183, 0.3);
+            transition: all 0.3s ease;
+            border: 2px solid white;
+        }
+
+        .home-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(103, 58, 183, 0.4);
+        }
+        
+        /* 網格佈局 */
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        /* 卡片基礎樣式 */
+        .app-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            text-decoration: none;
+            color: #333;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 6px solid #ccc; /* 預設顏色 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+        }
+
+        /* 冊別專屬樣式 */
+        .app-card.vol-3 { border-top-color: var(--vol3-color); }
+        .app-card.vol-3 .card-icon { background: var(--vol3-light); color: var(--vol3-color); border-color: #b2dfdb; }
+        .app-card.vol-3 .card-title { color: var(--vol3-color); }
+        .app-card.vol-3:hover { box-shadow: 0 12px 30px rgba(0, 137, 123, 0.15); }
+
+        .app-card.vol-4 { border-top-color: var(--vol4-color); }
+        .app-card.vol-4 .card-icon { background: var(--vol4-light); color: var(--vol4-color); border-color: #ffcdd2; }
+        .app-card.vol-4 .card-title { color: var(--vol4-color); }
+        .app-card.vol-4:hover { box-shadow: 0 12px 30px rgba(198, 40, 40, 0.15); }
+
+        .app-card.vol-5 { border-top-color: var(--vol5-color); }
+        .app-card.vol-5 .card-icon { background: var(--vol5-light); color: var(--vol5-color); border-color: #bbdefb; }
+        .app-card.vol-5 .card-title { color: var(--vol5-color); }
+        .app-card.vol-5:hover { box-shadow: 0 12px 30px rgba(21, 101, 192, 0.15); }
+
+        .app-card.vol-6 { border-top-color: var(--vol6-color); }
+        .app-card.vol-6 .card-icon { background: var(--vol6-light); color: var(--vol6-color); border-color: #e1bee7; }
+        .app-card.vol-6 .card-title { color: var(--vol6-color); }
+        .app-card.vol-6:hover { box-shadow: 0 12px 30px rgba(106, 27, 154, 0.15); }
+
+
+        /* 標籤圖示 */
+        .card-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid transparent;
+        }
+
+        /* 標題 */
+        .card-title {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.25em;
+            font-weight: 900;
+            margin-bottom: 8px;
+            min-height: 2.5em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 描述文字 (包含檔案名稱) */
+        .card-desc {
+            font-size: 0.85em;
+            color: #757575;
+            line-height: 1.4;
+            margin-bottom: 15px;
+            font-family: monospace; /* 檔案名稱用等寬字體 */
+            background: #f5f5f5;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        /* 狀態標籤 */
+        .card-badge {
+            margin-top: auto;
+            padding: 5px 12px;
+            background: #4caf50; /* 預設開放綠色 */
+            color: white;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        /* 補充教材的小標籤樣式調整 */
+        .supplementary .card-badge {
+            background-color: #795548; /* 棕色 */
+        }
+        
+        /* 準備中/鎖定狀態 */
+        .card-locked {
+            filter: grayscale(1);
+            opacity: 0.6;
+            cursor: not-allowed;
+            pointer-events: none;
+            background: #fafafa;
+            border-top-color: #9e9e9e !important;
+        }
+        .card-locked .card-badge {
+            background: #9e9e9e;
+        }
+        .card-locked .card-title {
+            color: #616161 !important;
+        }
+        .card-locked .card-icon {
+            background: #eee !important;
+            color: #999 !important;
+        }
+
+        /* 分隔線 */
+        .divider {
+            grid-column: 1 / -1;
+            display: flex;
+            align-items: center;
+            margin: 40px 0 20px 0;
+            color: #888;
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 2px solid #ddd;
+        }
+        .divider::before { margin-right: 15px; }
+        .divider::after { margin-left: 15px; }
+        
+        /* 冊別標籤顏色 */
+        .divider.d-vol3 { color: var(--vol3-color); }
+        .divider.d-vol3::before, .divider.d-vol3::after { border-color: var(--vol3-light); }
+        
+        .divider.d-vol4 { color: var(--vol4-color); }
+        .divider.d-vol4::before, .divider.d-vol4::after { border-color: var(--vol4-light); }
+
+        .divider.d-vol5 { color: var(--vol5-color); }
+        .divider.d-vol5::before, .divider.d-vol5::after { border-color: var(--vol5-light); }
+        
+        .divider.d-vol6 { color: var(--vol6-color); }
+        .divider.d-vol6::before, .divider.d-vol6::after { border-color: var(--vol6-light); }
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>📜 成語大師學習總部</h1>
+        <p>博古通今，出口成章</p>
+        
+        <!-- 返回百寶箱按鈕 -->
+        <a href="https://nicktsai88.github.io/List/" class="home-btn">
+            🎁 返回快樂學習百寶箱
+        </a>
+    </div>
+
+    <div class="app-grid">
+        
+        <!-- ================= 第3冊 (青瓷綠) ================= -->
+        
+        <div class="divider d-vol3">第 3 冊</div>
+
+        <!-- 補充-三國典故 -->
+        <a href="Chinese-idiom1.html" class="app-card vol-3">
+            <div class="card-icon">⚔️</div>
+            <div class="card-title">補充 - 三國典故<br>(120個成語)</div>
+            <div class="card-desc">Chinese-idiom1.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L7 張釋之執法 -->
+        <a href="Chinese-idiom2.html" class="app-card vol-3">
+            <div class="card-icon">⚖️</div>
+            <div class="card-title">L7 張釋之執法<br>(120個成語)</div>
+            <div class="card-desc">Chinese-idiom2.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L8 失落的水源 -->
+        <a href="Chinese-idiom3.html" class="app-card vol-3">
+            <div class="card-icon">💧</div>
+            <div class="card-title">L8 尋找失落的水源</div>
+            <div class="card-desc">Chinese-idiom3.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L9 一棵開花的樹 -->
+        <a href="Chinese-idiom4.html" class="app-card vol-3">
+            <div class="card-icon">🌸</div>
+            <div class="card-title">L9 一棵開花的樹</div>
+            <div class="card-desc">Chinese-idiom4.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+
+        <!-- ================= 第4冊 (朱砂紅) ================= -->
+
+        <div class="divider d-vol4">第 4 冊</div>
+
+        <!-- L1 運動家的風度 -->
+        <a href="Chinese-idiom5.html" class="app-card vol-4">
+            <div class="card-icon">🏃</div>
+            <div class="card-title">L1 運動家的風度</div>
+            <div class="card-desc">Chinese-idiom5.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L2 木蘭詩 -->
+        <a href="Chinese-idiom6.html" class="app-card vol-4">
+            <div class="card-icon">👘</div>
+            <div class="card-title">L2 木蘭詩</div>
+            <div class="card-desc">Chinese-idiom6.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L3 管好舌頭 -->
+        <a href="Chinese-idiom7.html" class="app-card vol-4">
+            <div class="card-icon">🤐</div>
+            <div class="card-title">L3 管好舌頭</div>
+            <div class="card-desc">Chinese-idiom7.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L4 我所知道的康橋 -->
+        <a href="Chinese-idiom8.html" class="app-card vol-4">
+            <div class="card-icon">🌉</div>
+            <div class="card-title">L4 我所知道的康橋</div>
+            <div class="card-desc">Chinese-idiom8.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L5 陋室銘 -->
+        <a href="Chinese-idiom9.html" class="app-card vol-4">
+            <div class="card-icon">🛖</div>
+            <div class="card-title">L5 陋室銘</div>
+            <div class="card-desc">Chinese-idiom9.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L6 森林最優美的一天 -->
+        <a href="Chinese-idiom10.html" class="app-card vol-4">
+            <div class="card-icon">🌲</div>
+            <div class="card-title">L6 森林最優美的一天</div>
+            <div class="card-desc">Chinese-idiom10.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L7 飛魚 -->
+        <a href="Chinese-idiom11.html" class="app-card vol-4">
+            <div class="card-icon">🐟</div>
+            <div class="card-title">L7 飛魚</div>
+            <div class="card-desc">Chinese-idiom11.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L8 空城計 -->
+        <a href="Chinese-idiom12.html" class="app-card vol-4">
+            <div class="card-icon">🏯</div>
+            <div class="card-title">L8 空城計</div>
+            <div class="card-desc">Chinese-idiom12.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L9 汨羅江神 -->
+        <a href="Chinese-idiom13.html" class="app-card vol-4">
+            <div class="card-icon">🌊</div>
+            <div class="card-title">L9 汨羅江神</div>
+            <div class="card-desc">Chinese-idiom13.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L10 科幻極短篇選 -->
+        <a href="Chinese-idiom14.html" class="app-card vol-4">
+            <div class="card-icon">👽</div>
+            <div class="card-title">L10 科幻極短篇選</div>
+            <div class="card-desc">Chinese-idiom14.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- 選文1 軼事瑣聞大觀園 -->
+        <a href="Chinese-idiom15.html" class="app-card vol-4">
+            <div class="card-icon">📖</div>
+            <div class="card-title">選文1<br>軼事瑣聞大觀園</div>
+            <div class="card-desc">Chinese-idiom15.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- 選文2 面對假訊息 -->
+        <a href="Chinese-idiom16.html" class="app-card vol-4">
+            <div class="card-icon">📰</div>
+            <div class="card-title">選文2<br>面對假訊息</div>
+            <div class="card-desc">Chinese-idiom16.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- 選文3 進軍葛萊美的華人設計師 -->
+        <a href="Chinese-idiom17.html" class="app-card vol-4">
+            <div class="card-icon">🏆</div>
+            <div class="card-title">選文3<br>蕭青陽</div>
+            <div class="card-desc">Chinese-idiom17.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+
+        <!-- ================= 第5冊 (景泰藍) ================= -->
+        
+        <div class="divider d-vol5">第 5 冊</div>
+
+        <!-- L1 -->
+        <a href="Chinese-idiom18.html" class="app-card vol-5">
+            <div class="card-icon">🌅</div>
+            <div class="card-title">L1</div>
+            <div class="card-desc">Chinese-idiom18.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L2 -->
+        <a href="Chinese-idiom19.html" class="app-card vol-5">
+            <div class="card-icon">🛤️</div>
+            <div class="card-title">L2</div>
+            <div class="card-desc">Chinese-idiom19.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L3 -->
+        <a href="Chinese-idiom20.html" class="app-card vol-5">
+            <div class="card-icon">🍂</div>
+            <div class="card-title">L3</div>
+            <div class="card-desc">Chinese-idiom20.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L4 -->
+        <a href="Chinese-idiom21.html" class="app-card vol-5">
+            <div class="card-icon">🏔️</div>
+            <div class="card-title">L4</div>
+            <div class="card-desc">Chinese-idiom21.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L5 -->
+        <a href="Chinese-idiom22.html" class="app-card vol-5">
+            <div class="card-icon">🎋</div>
+            <div class="card-title">L5</div>
+            <div class="card-desc">Chinese-idiom22.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L6 -->
+        <a href="Chinese-idiom23.html" class="app-card vol-5">
+            <div class="card-icon">🌙</div>
+            <div class="card-title">L6</div>
+            <div class="card-desc">Chinese-idiom23.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L7 -->
+        <a href="Chinese-idiom24.html" class="app-card vol-5">
+            <div class="card-icon">🏯</div>
+            <div class="card-title">L7</div>
+            <div class="card-desc">Chinese-idiom24.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L8 -->
+        <a href="Chinese-idiom25.html" class="app-card vol-5">
+            <div class="card-icon">📖</div>
+            <div class="card-title">L8</div>
+            <div class="card-desc">Chinese-idiom25.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L9 -->
+        <a href="Chinese-idiom26.html" class="app-card vol-5">
+            <div class="card-icon">🖌️</div>
+            <div class="card-title">L9</div>
+            <div class="card-desc">Chinese-idiom26.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L10 -->
+        <a href="Chinese-idiom27.html" class="app-card vol-5">
+            <div class="card-icon">🏮</div>
+            <div class="card-title">L10</div>
+            <div class="card-desc">Chinese-idiom27.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- 選文 1 -->
+        <a href="Chinese-idiom28.html" class="app-card vol-5">
+            <div class="card-icon">📜</div>
+            <div class="card-title">選文 1</div>
+            <div class="card-desc">Chinese-idiom28.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- 選文 2 -->
+        <a href="Chinese-idiom29.html" class="app-card vol-5">
+            <div class="card-icon">🗞️</div>
+            <div class="card-title">選文 2</div>
+            <div class="card-desc">Chinese-idiom29.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- 選文 3 -->
+        <a href="Chinese-idiom30.html" class="app-card vol-5">
+            <div class="card-icon">📑</div>
+            <div class="card-title">選文 3</div>
+            <div class="card-desc">Chinese-idiom30.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- ================= 第6冊 (紫羅蘭) ================= -->
+        
+        <div class="divider d-vol6">第 6 冊</div>
+
+        <!-- L1 -->
+        <a href="Chinese-idiom31.html" class="app-card vol-6">
+            <div class="card-icon">🌌</div>
+            <div class="card-title">L1</div>
+            <div class="card-desc">Chinese-idiom31.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L2 -->
+        <a href="Chinese-idiom32.html" class="app-card vol-6">
+            <div class="card-icon">🪁</div>
+            <div class="card-title">L2</div>
+            <div class="card-desc">Chinese-idiom32.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L3 -->
+        <a href="Chinese-idiom33.html" class="app-card vol-6">
+            <div class="card-icon">🍵</div>
+            <div class="card-title">L3</div>
+            <div class="card-desc">Chinese-idiom33.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L4 -->
+        <a href="Chinese-idiom34.html" class="app-card vol-6">
+            <div class="card-icon">🦗</div>
+            <div class="card-title">L4</div>
+            <div class="card-desc">Chinese-idiom34.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L5 -->
+        <a href="Chinese-idiom35.html" class="app-card vol-6">
+            <div class="card-icon">🕯️</div>
+            <div class="card-title">L5</div>
+            <div class="card-desc">Chinese-idiom35.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L6 -->
+        <a href="Chinese-idiom36.html" class="app-card vol-6">
+            <div class="card-icon">🦉</div>
+            <div class="card-title">L6</div>
+            <div class="card-desc">Chinese-idiom36.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L7 -->
+        <a href="Chinese-idiom37.html" class="app-card vol-6">
+            <div class="card-icon">🎭</div>
+            <div class="card-title">L7</div>
+            <div class="card-desc">Chinese-idiom37.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L8 -->
+        <a href="Chinese-idiom38.html" class="app-card vol-6">
+            <div class="card-icon">🏺</div>
+            <div class="card-title">L8</div>
+            <div class="card-desc">Chinese-idiom38.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L9 -->
+        <a href="Chinese-idiom39.html" class="app-card vol-6">
+            <div class="card-icon">🖋️</div>
+            <div class="card-title">L9</div>
+            <div class="card-desc">Chinese-idiom39.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- L10 -->
+        <a href="Chinese-idiom40.html" class="app-card vol-6">
+            <div class="card-icon">🎓</div>
+            <div class="card-title">L10</div>
+            <div class="card-desc">Chinese-idiom40.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- 選文 1 -->
+        <a href="Chinese-idiom41.html" class="app-card vol-6">
+            <div class="card-icon">📚</div>
+            <div class="card-title">選文 1</div>
+            <div class="card-desc">Chinese-idiom41.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+        <!-- 選文 2 -->
+        <a href="Chinese-idiom42.html" class="app-card vol-6">
+            <div class="card-icon">🧩</div>
+            <div class="card-title">選文 2</div>
+            <div class="card-desc">Chinese-idiom42.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+        
+        <!-- 選文 3 -->
+        <a href="Chinese-idiom43.html" class="app-card vol-6">
+            <div class="card-icon">🎓</div>
+            <div class="card-title">選文 3</div>
+            <div class="card-desc">Chinese-idiom43.html</div>
+            <div class="card-badge">開放中</div>
+        </a>
+
+    </div>
+
+</body>
+</html>

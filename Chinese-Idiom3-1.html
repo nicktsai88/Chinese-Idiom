@@ -174,13 +174,14 @@
         //  Firebase 設定 (請填入您的 Key)
         // ==========================================
         const firebaseConfig = {
-            apiKey: "AIzaSyAxQFt76ZPXE7d0i1XeNZ1yiiD2WYNIfHs",
-            authDomain: "chinese-learning-47f4d.firebaseapp.com",
-            projectId: "chinese-learning-47f4d",
-            storageBucket: "chinese-learning-47f4d.firebasestorage.app",
-            messagingSenderId: "76289812052",
-            appId: "1:76289812052:web:898384a916f9f341f62fc1"
-        };
+  apiKey: "AIzaSyAxQFt76ZPXE7d0i1XeNZ1yiiD2WYNIfHs",
+  authDomain: "chinese-learning-47f4d.firebaseapp.com",
+  projectId: "chinese-learning-47f4d",
+  storageBucket: "chinese-learning-47f4d.firebasestorage.app",
+  messagingSenderId: "76289812052",
+  appId: "1:76289812052:web:898384a916f9f341f62fc1"
+};
+
 
         // Firebase Initialization
         let db;
@@ -382,9 +383,9 @@
             { id: 172, term: "傷春悲秋", definition: "因季節景物變化而感傷。形容多愁善感。", sentence1: "她總是傷春悲秋，一點小事就掉眼淚。", sentence2: "與其整天傷春悲秋，不如振作起來做點有意義的事。", scene: "感嘆季節，情緒低落多愁。" },
             { id: 173, term: "如影隨形", definition: "好像影子跟在身體後面一樣。比喻常在一起，或關係密切。", sentence1: "這些煩惱如影隨形，讓他無法安心工作。", sentence2: "孤獨感就像如影隨形般，時刻伴隨著他。", scene: "像影子跟著身體，分不開。" },
             { id: 174, term: "一帆風順", definition: "船掛滿帆，順風行駛。比喻事情非常順利，沒有阻礙。", sentence1: "祝你未來的事業一帆風順，鵬程萬里。", sentence2: "人生不可能永遠一帆風順，總會遇到一些挫折。", scene: "旅程或事情非常順利。" }
-        ];
+       ];
 
-        // 自動生成測試資料 (確保 ID 不重複)
+        // 自動生成測試資料 (修正版：確保 ID 不重複)
         if (IDIOM_DATA.length < 50) {
             let nextId = Math.max(...IDIOM_DATA.map(item => item.id)) + 1;
             while (IDIOM_DATA.length < 200) {
@@ -424,8 +425,7 @@
             skipBack: <><polygon points="19 20 9 12 19 4 19 20"></polygon><line x1="5" y1="19" x2="5" y2="5"></line></>,
             skipForward: <><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19"></line></>,
             print: <><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></>,
-            lock: <><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></>,
-            activity: <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+            lock: <><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></>
         };
 
         const Icon = ({ path, className, fill = "none" }) => (
@@ -589,7 +589,7 @@
 
         const MenuView = ({ 
             userName, setUserName, showNameWarning, mistakeLog, favorites, parsedData, 
-            onStartLearn, onStartQuiz, onStartWaterfall, onViewHistory, onViewMistakes, onViewTable, onPrint,
+            onStartLearn, onStartQuiz, onViewHistory, onViewMistakes, onViewTable, onPrint,
             onLogin, isLocked, onQuickLogin, globalUsers, onLogout, onDeleteUser,
             triggerMusic, connectionStatus, completedDays
         }) => {
@@ -799,13 +799,13 @@
                                 </div>
                             </div>
 
-                            {/* Main Cards (Learning & My Favorites & Waterfall) */}
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            {/* Main Cards (Learning & My Favorites) */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {/* 學習模式 */}
                                 <div className="bg-white/90 backdrop-blur rounded-2xl p-6 shadow-md border-2 border-amber-100 hover:border-amber-300 transition-all group relative overflow-hidden cursor-pointer" onClick={() => { onStartLearn('精選成語'); triggerMusic(); }}>
                                     <div className="absolute -right-6 -top-6 w-24 h-24 bg-amber-100 rounded-full opacity-50 group-hover:scale-150 transition-transform duration-500"></div>
-                                    <h3 className="text-2xl font-black text-amber-900 mb-2 relative z-10">📖 研讀量詞</h3>
-                                    <p className="text-gray-500 mb-6 relative z-10 h-16 text-sm">瀏覽所有量詞，學習釋義與應用範例。</p>
+                                    <h3 className="text-2xl font-black text-amber-900 mb-2 relative z-10">📖 研讀成語</h3>
+                                    <p className="text-gray-500 mb-6 relative z-10 h-12">瀏覽所有成語，學習釋義與例句，奠定基礎。</p>
                                     <div className="flex gap-3 relative z-10">
                                         <button className="flex-1 bg-amber-100 hover:bg-amber-200 text-amber-800 py-3 rounded-xl font-bold transition-colors flex items-center justify-center">
                                             <Icon path={icons.book} className="w-5 h-5 mr-2"/> 開始研讀
@@ -813,14 +813,14 @@
                                     </div>
                                 </div>
 
-                                {/* 我的收藏 */}
+                                {/* 我的收藏 (Moved from bottom) */}
                                 <div className="bg-white/90 backdrop-blur rounded-2xl p-6 shadow-md border-2 border-rose-100 hover:border-rose-300 transition-all group relative overflow-hidden">
                                     <div className="absolute -right-6 -top-6 w-24 h-24 bg-rose-100 rounded-full opacity-50 group-hover:scale-150 transition-transform duration-500"></div>
                                     <div className="flex justify-between items-start relative z-10 mb-2">
                                         <h3 className="text-2xl font-black text-rose-900 flex items-center"><Icon path={icons.heart} className="w-6 h-6 mr-2 text-rose-500" fill="currentColor"/> 我的收藏</h3>
                                         <span className="bg-rose-100 text-rose-600 text-xs font-bold px-2 py-1 rounded-full">{favorites.length}</span>
                                     </div>
-                                    <p className="text-gray-500 mb-6 relative z-10 h-16 text-sm">複習您收藏的重點量詞，隨時溫故知新。</p>
+                                    <p className="text-gray-500 mb-6 relative z-10 h-12">複習您收藏的重點成語，隨時溫故知新。</p>
                                     <div className="flex gap-3 relative z-10">
                                         <button onClick={() => { onStartLearn('收藏夾'); triggerMusic(); }} disabled={favorites.length===0} className="flex-1 bg-rose-50 hover:bg-rose-100 text-rose-700 py-3 rounded-xl font-bold transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed">
                                             <Icon path={icons.book} className="w-5 h-5 mr-2"/> 溫故
@@ -830,25 +830,13 @@
                                         </button>
                                     </div>
                                 </div>
-
-                                {/* 瀑布刷題 (New) */}
-                                <div className="bg-white/90 backdrop-blur rounded-2xl p-6 shadow-md border-2 border-cyan-100 hover:border-cyan-300 transition-all group relative overflow-hidden">
-                                    <div className="absolute -right-6 -top-6 w-24 h-24 bg-cyan-100 rounded-full opacity-50 group-hover:scale-150 transition-transform duration-500"></div>
-                                    <h3 className="text-2xl font-black text-cyan-900 mb-2 relative z-10 flex items-center"><Icon path={icons.activity} className="w-6 h-6 mr-2 text-cyan-600"/> 瀑布刷題</h3>
-                                    <p className="text-gray-500 mb-6 relative z-10 h-16 text-sm">不分卷數，一次挑戰所有題目，極速複習。</p>
-                                    <div className="flex gap-3 relative z-10">
-                                        <button onClick={() => { onStartWaterfall(); triggerMusic(); }} className="flex-1 bg-cyan-100 hover:bg-cyan-200 text-cyan-800 py-3 rounded-xl font-bold transition-colors flex items-center justify-center">
-                                            <Icon path={icons.activity} className="w-5 h-5 mr-2"/> 立即開刷
-                                        </button>
-                                    </div>
-                                </div>
                             </div>
 
                             {/* Secondary Actions Grid */}
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 <button onClick={onViewTable} className="bg-white/80 hover:bg-purple-50 border-2 border-purple-100 hover:border-purple-300 p-4 rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2 transition-all group">
                                     <div className="bg-purple-100 text-purple-500 p-3 rounded-full mb-1 shadow-sm group-hover:scale-110 transition-transform"><Icon path={icons.list} className="w-6 h-6"/></div>
-                                    <span className="font-bold text-gray-700">量詞總覽</span>
+                                    <span className="font-bold text-gray-700">成語總覽</span>
                                 </button>
 
                                 <button onClick={onViewMistakes} className="bg-white/80 hover:bg-red-50 border-2 border-red-100 hover:border-red-300 p-4 rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2 transition-all">
@@ -931,6 +919,8 @@
             );
         };
 
+        // TableView, LearnView, QuizView, HistoryView Components remain largely the same, included below for completeness
+        
         const TableView = ({ items, onMenu, favorites, toggleFavorite }) => {
             const [searchTerm, setSearchTerm] = useState("");
             const filteredItems = useMemo(() => {
@@ -1001,7 +991,7 @@
             );
         };
 
-        const QuizView = ({ questions, score, userName, combo, onAnswer, onFinish, onMenu, onViewHistory, favorites, toggleFavorite, totalItems, quizPage, onPageChange, completedDays, activeCategory }) => {
+        const QuizView = ({ questions, score, userName, combo, onAnswer, onFinish, onMenu, onViewHistory, favorites, toggleFavorite, totalItems, quizPage, onPageChange, completedDays }) => {
             const [showResult, setShowResult] = useState(false);
             const isFinished = questions.length > 0 && questions.every(q => q.userAnswer !== null);
             const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
@@ -1025,18 +1015,7 @@
                 <div className="max-w-4xl mx-auto pb-20 px-4 mt-12 no-print">
                     <div className="bg-white/95 backdrop-blur shadow-sm p-4 rounded-b-2xl mb-8 sticky top-16 z-30 border-t-4 border-amber-500 flex flex-col md:flex-row justify-between items-center transition-all">
                         <div className="flex items-center gap-4 mb-4 md:mb-0 w-full md:w-auto justify-between md:justify-start"><button onClick={onMenu} className="text-gray-500 text-sm flex items-center hover:text-red-600 font-bold bg-gray-100 px-3 py-2 rounded-lg transition-colors"><Icon path={icons.left} className="w-4 h-4 mr-1"/> 撤退</button><div className="font-bold text-xl flex items-center gap-3"><span>{userName}</span><span className="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm font-black border border-amber-200">戰功: {score}</span></div></div>
-                        
-                        {/* 只有在非瀑布模式下顯示分頁 */}
-                        {activeCategory !== 'waterfall' && (
-                            <div className="flex overflow-x-auto overflow-y-hidden max-w-full w-full md:w-auto pb-1 md:pb-0 gap-2">
-                                {Array.from({ length: totalPages }).map((_, i) => (<button key={i} onClick={() => onPageChange(i)} className={`px-3 py-1.5 rounded-md text-xs font-bold whitespace-nowrap flex items-center gap-1 transition-all flex-shrink-0 ${quizPage === i ? 'bg-amber-600 text-white shadow-md' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}>卷{i + 1}{completedDays.some(item => item.id === `精選成語-${i}`) && <span className="bg-green-400 text-white text-[10px] w-3 h-3 flex items-center justify-center rounded-full">✓</span>}</button>))}
-                            </div>
-                        )}
-                        {activeCategory === 'waterfall' && (
-                            <div className="bg-cyan-100 text-cyan-800 px-3 py-1 rounded-full text-sm font-black border border-cyan-200 flex items-center">
-                                <Icon path={icons.activity} className="w-4 h-4 mr-1"/> 瀑布模式
-                            </div>
-                        )}
+                        <div className="flex overflow-x-auto overflow-y-hidden max-w-full w-full md:w-auto pb-1 md:pb-0 gap-2">{Array.from({ length: totalPages }).map((_, i) => (<button key={i} onClick={() => onPageChange(i)} className={`px-3 py-1.5 rounded-md text-xs font-bold whitespace-nowrap flex items-center gap-1 transition-all flex-shrink-0 ${quizPage === i ? 'bg-amber-600 text-white shadow-md' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}>卷{i + 1}{completedDays.some(item => item.id === `精選成語-${i}`) && <span className="bg-green-400 text-white text-[10px] w-3 h-3 flex items-center justify-center rounded-full">✓</span>}</button>))}</div>
                     </div>
                     <div className="space-y-8">
                         {questions.map((q, idx) => (
@@ -1119,11 +1098,7 @@
             return (
                 <div className="max-w-4xl mx-auto px-4 py-8 mt-12 no-print">
                     <div className="flex items-center mb-8"><button onClick={onMenu} className="mr-4 p-3 bg-white rounded-xl shadow border border-gray-200 hover:bg-gray-50"><Icon path={icons.left} className="w-5 h-5"/></button><h2 className="text-3xl font-black text-gray-800 flex items-center gap-3">📜 歷史戰績 <span className="text-sm font-normal text-gray-500 bg-gray-100 px-2 py-1 rounded-full">{historyLog.length} 場</span></h2></div>
-                    {historyLog.length === 0 ? (
-                        <div className="text-center py-32 text-gray-400 border-2 border-dashed border-gray-200 rounded-3xl bg-white/80 backdrop-blur"><Icon path={icons.history} className="w-16 h-16 mx-auto mb-4 text-gray-300"/><p className="text-xl font-bold">尚無戰役紀錄</p></div>
-                    ) : (
-                        <div className="bg-white/95 backdrop-blur-md rounded-3xl shadow-lg overflow-hidden border border-gray-200"><table className="w-full text-left border-collapse"><thead className="bg-amber-50 border-b border-amber-100"><tr><th className="p-5 font-black text-amber-900 text-sm uppercase tracking-wider hidden md:table-cell">日期</th><th className="p-5 font-black text-amber-900 text-sm uppercase tracking-wider">主公</th><th className="p-5 font-black text-amber-900 text-sm uppercase tracking-wider">戰功</th><th className="p-5 text-right">操作</th></tr></thead><tbody className="divide-y divide-gray-100">{historyLog.map(log => (<tr key={log.id} className="hover:bg-amber-50/50 transition-colors"><td className="p-5 text-gray-500 text-sm font-mono hidden md:table-cell">{log.date.split(',')[0]}</td><td className="p-5 font-bold text-gray-800">{log.userName}</td><td className="p-5"><span className="font-black px-3 py-1 rounded-lg text-sm bg-gray-100 text-gray-700 border border-gray-200">{log.score} <span className="text-gray-400 font-normal">/ {log.total}</span></span></td><td className="p-5 text-right"><button onClick={() => setSelectedLog(log)} className="text-amber-600 hover:text-white hover:bg-amber-600 px-4 py-2 rounded-lg text-sm font-bold transition-all border border-amber-200 hover:border-amber-600">查看</button></td></tr>))}</tbody></table></div>
-                    )}
+                    {historyLog.length === 0 ? <div className="text-center py-32 text-gray-400 border-2 border-dashed border-gray-200 rounded-3xl bg-white/80 backdrop-blur"><Icon path={icons.history} className="w-16 h-16 mx-auto mb-4 text-gray-300"/><p className="text-xl font-bold">尚無戰役紀錄</p></div> : <div className="bg-white/95 backdrop-blur-md rounded-3xl shadow-lg overflow-hidden border border-gray-200"><table className="w-full text-left border-collapse"><thead className="bg-amber-50 border-b border-amber-100"><tr><th className="p-5 font-black text-amber-900 text-sm uppercase tracking-wider hidden md:table-cell">日期</th><th className="p-5 font-black text-amber-900 text-sm uppercase tracking-wider">主公</th><th className="p-5 font-black text-amber-900 text-sm uppercase tracking-wider">戰功</th><th className="p-5 text-right">操作</th></tr></thead><tbody className="divide-y divide-gray-100">{historyLog.map(log => (<tr key={log.id} className="hover:bg-amber-50/50 transition-colors"><td className="p-5 text-gray-500 text-sm font-mono hidden md:table-cell">{log.date.split(',')[0]}</td><td className="p-5 font-bold text-gray-800">{log.userName}</td><td className="p-5"><span className="font-black px-3 py-1 rounded-lg text-sm bg-gray-100 text-gray-700 border border-gray-200">{log.score} <span className="text-gray-400 font-normal">/ {log.total}</span></span></td><td className="p-5 text-right"><button onClick={() => setSelectedLog(log)} className="text-amber-600 hover:text-white hover:bg-amber-600 px-4 py-2 rounded-lg text-sm font-bold transition-all border border-amber-200 hover:border-amber-600">查看</button></td></tr>))}</tbody></table></div>}
                     <div className="text-center mt-12 pb-10"><button onClick={() => {if(confirm('確定焚毀所有戰報？此操作無法復原！')) setHistoryLog([])}} className="text-red-400 hover:text-red-600 text-sm flex items-center justify-center mx-auto hover:bg-red-50/80 px-4 py-2 rounded-lg transition-colors"><Icon path={icons.trash} className="w-4 h-4 mr-2"/> 清除所有紀錄</button></div>
                 </div>
             );
@@ -1144,12 +1119,8 @@
             const [favorites, setFavorites] = useState([]);
             const [historyLog, setHistoryLog] = useState([]);
             const [mistakeLog, setMistakeLog] = useState([]);
-            const [completedDays, setCompletedDays] = useState([]); 
-            
-            // New Session States
-            const [savedLevelSession, setSavedLevelSession] = useState(null);
-            const [savedWaterfallSession, setSavedWaterfallSession] = useState(null);
-
+            const [completedDays, setCompletedDays] = useState([]); // Now an array of objects: {id, date, score}
+            const [savedSession, setSavedSession] = useState(null);
             const [learnPage, setLearnPage] = useState(0);
             const [quizQuestions, setQuizQuestions] = useState([]);
             const [quizScore, setQuizScore] = useState(0);
@@ -1203,10 +1174,7 @@
                         });
                         setCompletedDays(formattedProgress);
                         
-                        // Load separate sessions
-                        setSavedLevelSession(data.currentLevelSession || null);
-                        setSavedWaterfallSession(data.currentWaterfallSession || null);
-                        
+                        setSavedSession(data.currentQuizSession || null);
                         setConnectionStatus('success');
                     } else {
                         setDoc(userDocRef, { favorites: [], history: [], mistakes: [], progress: [], lastLogin: new Date().toISOString() }, { merge: true });
@@ -1225,33 +1193,17 @@
 
             const handleLogin = async () => { if (userName.trim()) { setIsLocked(true); setShowNameWarning(false); if (isFirebaseReady) { try { const globalDocRef = doc(db, COLLECTION_NAME, DOC_GLOBAL); await updateDoc(globalDocRef, { users: arrayUnion(userName) }); } catch (e) {} } } else { setShowNameWarning(true); } };
             const handleQuickLogin = (name) => { setUserName(name); setIsLocked(true); setShowNameWarning(false); };
-            const handleLogout = () => { if(confirm('確定要登出嗎？')) { setIsLocked(false); setUserName(''); setFavorites([]); setHistoryLog([]); setMistakeLog([]); setCompletedDays([]); setSavedLevelSession(null); setSavedWaterfallSession(null); } };
-            const handleDeleteUser = async () => { if (!isFirebaseReady) { alert("請先連線至雲端"); return; } if (confirm('【危險操作】確定要刪除這位使用者的所有資料嗎？')) { if (confirm('再次確認：這將會清除所有學習紀錄、收藏和錯題本，且無法復原！確定要執行嗎？')) { try { const globalDocRef = doc(db, COLLECTION_NAME, DOC_GLOBAL); await updateDoc(globalDocRef, { users: arrayRemove(userName) }); const userDocRef = doc(db, COLLECTION_NAME, userName); await setDoc(userDocRef, { deleted: true }); setFavorites([]); setHistoryLog([]); setMistakeLog([]); setCompletedDays([]); setSavedLevelSession(null); setSavedWaterfallSession(null); setIsLocked(false); setUserName(''); } catch (e) { alert("刪除失敗"); } } } };
+            const handleLogout = () => { if(confirm('確定要登出嗎？')) { setIsLocked(false); setUserName(''); setFavorites([]); setHistoryLog([]); setMistakeLog([]); setCompletedDays([]); setSavedSession(null); } };
+            const handleDeleteUser = async () => { if (!isFirebaseReady) { alert("請先連線至雲端"); return; } if (confirm('【危險操作】確定要刪除這位使用者的所有資料嗎？')) { if (confirm('再次確認：這將會清除所有學習紀錄、收藏和錯題本，且無法復原！確定要執行嗎？')) { try { const globalDocRef = doc(db, COLLECTION_NAME, DOC_GLOBAL); await updateDoc(globalDocRef, { users: arrayRemove(userName) }); const userDocRef = doc(db, COLLECTION_NAME, userName); await setDoc(userDocRef, { deleted: true }); setFavorites([]); setHistoryLog([]); setMistakeLog([]); setCompletedDays([]); setSavedSession(null); setIsLocked(false); setUserName(''); } catch (e) { alert("刪除失敗"); } } } };
             const toggleFavorite = (id) => { const newFavorites = favorites.includes(id) ? favorites.filter(fid => fid !== id) : [...favorites, id]; setFavorites(newFavorites); updateUserData('favorites', newFavorites); };
             const clearHistoryLog = () => { setHistoryLog([]); updateUserData('history', []); };
             const clearMistakeLog = () => { setMistakeLog([]); updateUserData('mistakes', []); };
 
             const playSoundEffect = (type) => { try { const AudioContext = window.AudioContext || window.webkitAudioContext; if (!AudioContext) return; const ctx = new AudioContext(); const now = ctx.currentTime; if (type === 'correct') { const osc1 = ctx.createOscillator(); const gain1 = ctx.createGain(); osc1.type = 'sine'; osc1.frequency.setValueAtTime(523.25, now); gain1.gain.setValueAtTime(0.1, now); gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.5); osc1.connect(gain1); gain1.connect(ctx.destination); osc1.start(now); osc1.stop(now + 0.5); const osc2 = ctx.createOscillator(); const gain2 = ctx.createGain(); osc2.type = 'sine'; osc2.frequency.setValueAtTime(659.25, now + 0.1); gain2.gain.setValueAtTime(0.1, now + 0.1); gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.6); osc2.connect(gain2); gain2.connect(ctx.destination); osc2.start(now + 0.1); osc2.stop(now + 0.6); } else { const osc = ctx.createOscillator(); const gain = ctx.createGain(); osc.type = 'triangle'; osc.frequency.setValueAtTime(150, now); osc.frequency.exponentialRampToValueAtTime(50, now + 0.3); gain.gain.setValueAtTime(0.2, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3); osc.connect(gain); gain.connect(ctx.destination); osc.start(now); osc.stop(now + 0.3); } } catch (e) {} };
 
-            // Helper to restore session state
-            const restoreSession = (session) => {
-                setQuizQuestions(session.questions);
-                setQuizScore(session.score);
-                setCombo(session.combo);
-                setQuizPage(session.pageIdx || 0);
-                setActiveCategory(session.category);
-                setCurrentMode('quiz');
-            };
-
             const handleStartQuiz = (category, pageIdx = 0, isMistakeMode = false) => {
                 if (!isLocked) { setShowNameWarning(true); return; }
-                
-                // Auto-resume Level Session
-                if (savedLevelSession && savedLevelSession.category === category && savedLevelSession.pageIdx === pageIdx && !isMistakeMode) {
-                    restoreSession(savedLevelSession);
-                    return;
-                }
-
+                if (savedSession && savedSession.category === category && savedSession.pageIdx === pageIdx && !isMistakeMode) { if (confirm('發現您有未完成的進度，是否繼續作答？')) { setQuizQuestions(savedSession.questions); setQuizScore(savedSession.score); setCombo(savedSession.combo); setQuizPage(savedSession.pageIdx); setActiveCategory(savedSession.category); setCurrentMode('quiz'); return; } else { updateUserData('currentQuizSession', null); } }
                 let questions = [];
                 if (isMistakeMode) { const mistakeIds = mistakeLog.map(m => m.id); questions = allItems.filter(i => mistakeIds.includes(i.id)); questions.sort(() => Math.random() - 0.5); } 
                 else { 
@@ -1264,36 +1216,6 @@
                 if (questions.length === 0) { alert(isMistakeMode ? "目前沒有錯題！" : "此頁面無題目"); return; }
                 const quizSet = questions.map(item => { let pool = allItems.filter(i => i.id !== item.id); const distractors = pool.sort(() => Math.random() - 0.5).slice(0, 3); const options = [...distractors, item].sort(() => Math.random() - 0.5); return { ...item, options, userAnswer: null, isCorrect: null }; });
                 setQuizQuestions(quizSet); setQuizScore(0); setCombo(0); setQuizPage(pageIdx); setActiveCategory(isMistakeMode ? '錯題本' : category); setCurrentMode('quiz'); window.scrollTo(0,0);
-            };
-
-            // New Function: Waterfall Mode
-            const handleStartWaterfall = () => {
-                if (!isLocked) { setShowNameWarning(true); return; }
-
-                // Auto-resume Waterfall Session
-                if (savedWaterfallSession) {
-                    restoreSession(savedWaterfallSession);
-                    return;
-                }
-
-                // Create new waterfall session (all items shuffled)
-                const questions = [...allItems];
-                questions.sort(() => Math.random() - 0.5);
-
-                const quizSet = questions.map(item => { 
-                    let pool = allItems.filter(i => i.id !== item.id); 
-                    const distractors = pool.sort(() => Math.random() - 0.5).slice(0, 3); 
-                    const options = [...distractors, item].sort(() => Math.random() - 0.5); 
-                    return { ...item, options, userAnswer: null, isCorrect: null }; 
-                });
-
-                setQuizQuestions(quizSet);
-                setQuizScore(0);
-                setCombo(0);
-                setQuizPage(0);
-                setActiveCategory('waterfall');
-                setCurrentMode('quiz');
-                window.scrollTo(0,0);
             };
 
             const handleAnswer = (qIndex, selectedOptionId) => {
@@ -1336,19 +1258,15 @@
                 }
                 setQuizQuestions(newQuestions);
                 
-                // Determine which session to update based on mode
                 if (activeCategory !== '錯題本') {
-                    const sessionData = {
+                    updateUserData('currentQuizSession', {
                         questions: newQuestions,
                         score: newScore,
                         combo: newCombo,
                         category: activeCategory,
                         pageIdx: quizPage,
                         timestamp: new Date().toISOString()
-                    };
-                    
-                    const fieldName = activeCategory === 'waterfall' ? 'currentWaterfallSession' : 'currentLevelSession';
-                    updateUserData(fieldName, sessionData);
+                    });
                 }
             };
 
@@ -1356,30 +1274,28 @@
                 const record = { id: Date.now(), date: new Date().toLocaleString(), userName, score: quizScore, total: quizQuestions.length, category: activeCategory, details: quizQuestions.map(q => ({ term: q.term, definition: q.definition, sentence: q.sentence2, isCorrect: q.isCorrect, userAnswer: q.options.find(o => o.id === q.userAnswer)?.term || "未作答", correctAnswer: q.term })) };
                 const newHistory = [record, ...historyLog]; setHistoryLog(newHistory); updateUserData('history', newHistory);
                 
-                if (activeCategory !== '收藏夾' && activeCategory !== '錯題本' && activeCategory !== 'waterfall') { 
+                if (activeCategory !== '收藏夾' && activeCategory !== '錯題本') { 
                     const key = `${activeCategory}-${quizPage}`; 
-                    if (quizScore > 0) { 
+                    if (quizScore > 0) { // Condition to complete a level
                         const todayStr = new Date().toLocaleDateString();
                         const existingEntryIndex = completedDays.findIndex(item => item.id === key);
                         let newCompleted;
                         
                         if (existingEntryIndex >= 0) {
+                            // Update existing (keep first completion date or update score?)
+                            // Let's just update score if higher, keep date usually. But for simplicity, we update date on replay.
                             newCompleted = [...completedDays];
                             newCompleted[existingEntryIndex] = { ...newCompleted[existingEntryIndex], score: Math.max(newCompleted[existingEntryIndex].score || 0, quizScore), date: todayStr };
                         } else {
+                            // Add new
                             newCompleted = [...completedDays, { id: key, date: todayStr, score: quizScore }];
                         }
                         
                         setCompletedDays(newCompleted); 
                         updateUserData('progress', newCompleted); 
                     } 
-                } 
-                
-                // Clear the session that was just finished
-                if (activeCategory !== '錯題本') {
-                    const fieldName = activeCategory === 'waterfall' ? 'currentWaterfallSession' : 'currentLevelSession';
-                    updateUserData(fieldName, null);
                 }
+                updateUserData('currentQuizSession', null);
             };
 
             return (
@@ -1388,7 +1304,7 @@
                     <div className="fixed inset-0 z-0 bg-white/70 backdrop-blur-[2px] no-print"></div>
                     <div className="relative z-10">
                         <MusicPlayer ref={musicPlayerRef} />
-                        {currentMode === 'menu' && <MenuView userName={userName} setUserName={setUserName} showNameWarning={showNameWarning} mistakeLog={mistakeLog} favorites={favorites} parsedData={parsedData} onStartLearn={(cat) => { setActiveCategory(cat); setLearnPage(0); setCurrentMode('learn'); }} onStartQuiz={(cat, page = 0) => handleStartQuiz(cat, page)} onStartWaterfall={handleStartWaterfall} onViewHistory={() => setCurrentMode('history')} onViewMistakes={() => setCurrentMode('mistakes')} onViewTable={() => setCurrentMode('table')} onPrint={() => setCurrentMode('print')} onLogin={handleLogin} isLocked={isLocked} onQuickLogin={handleQuickLogin} lastUser={lastUser} onLogout={handleLogout} onDeleteUser={handleDeleteUser} globalUsers={globalUsers} triggerMusic={triggerMusic} connectionStatus={connectionStatus} completedDays={completedDays} />}
+                        {currentMode === 'menu' && <MenuView userName={userName} setUserName={setUserName} showNameWarning={showNameWarning} mistakeLog={mistakeLog} favorites={favorites} parsedData={parsedData} onStartLearn={(cat) => { setActiveCategory(cat); setLearnPage(0); setCurrentMode('learn'); }} onStartQuiz={(cat, page = 0) => handleStartQuiz(cat, page)} onViewHistory={() => setCurrentMode('history')} onViewMistakes={() => setCurrentMode('mistakes')} onViewTable={() => setCurrentMode('table')} onPrint={() => setCurrentMode('print')} onLogin={handleLogin} isLocked={isLocked} onQuickLogin={handleQuickLogin} lastUser={lastUser} onLogout={handleLogout} onDeleteUser={handleDeleteUser} globalUsers={globalUsers} triggerMusic={triggerMusic} connectionStatus={connectionStatus} completedDays={completedDays} />}
                         {currentMode === 'learn' && <LearnView items={activeCategory === '收藏夾' ? allItems.filter(i => favorites.includes(i.id)) : parsedData["精選成語"]} learnPage={learnPage} setLearnPage={setLearnPage} favorites={favorites} toggleFavorite={toggleFavorite} completedDays={completedDays} onMenu={() => setCurrentMode('menu')} />}
                         {currentMode === 'quiz' && <QuizView questions={quizQuestions} score={quizScore} userName={userName} combo={combo} onAnswer={handleAnswer} onFinish={finishQuiz} onMenu={() => setCurrentMode('menu')} onViewHistory={() => setCurrentMode('history')} favorites={favorites} toggleFavorite={toggleFavorite} activeCategory={activeCategory} totalItems={activeCategory === '收藏夾' ? favorites.length : parsedData["精選成語"].length} quizPage={quizPage} onPageChange={(page) => handleStartQuiz(activeCategory, page)} completedDays={completedDays} />}
                         {currentMode === 'history' && <HistoryView historyLog={historyLog} setHistoryLog={clearHistoryLog} onMenu={() => setCurrentMode('menu')} />}

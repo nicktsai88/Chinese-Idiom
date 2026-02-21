@@ -743,20 +743,29 @@
                             <div className="grid grid-cols-2 gap-x-16 gap-y-6 flex-1 content-start">
                                 {chunk.map((item, idx) => {
                                     const globalIndex = pageIndex * chunkSize + idx + 1;
-                                    const term = item.term;
-                                    const prefixLength = Math.max(0, term.length - 2);
-                                    const prefix = term.substring(0, prefixLength);
-                                    
-                                    return (
-                                        <div key={item.id} className="flex items-start break-inside-avoid w-full">
-                                            <span className="mr-2 w-7 text-right font-mono text-lg font-bold mt-1 shrink-0">{globalIndex}.</span>
-                                            <div className="flex flex-wrap items-end gap-x-1 gap-y-1 flex-1">
-                                                <span className="font-serif text-lg tracking-widest leading-relaxed">{prefix}</span>
-                                                <div className="flex gap-1 shrink-0 pb-1">
-                                                    <div className="border-2 border-black w-[0.9cm] h-[0.9cm]"></div>
-                                                    <div className="border-2 border-black w-[0.9cm] h-[0.9cm]"></div>
-                                                </div>
+                                    let content;
+                                    if (item.term.includes("，") || item.term.includes(",")) {
+                                        const parts = item.term.split(/，|,/);
+                                        content = (
+                                            <div className="flex items-end w-full">
+                                                <span className="font-serif text-xl tracking-widest whitespace-nowrap">{parts[0]}，</span>
+                                                <div className="border-b-2 border-black flex-1 min-w-[50px] ml-1"></div>
                                             </div>
+                                        );
+                                    } else {
+                                        const prefix = item.term.substring(0, 2);
+                                        content = (
+                                            <div className="flex items-center gap-1">
+                                                <span className="font-serif text-xl tracking-[0.5em] mr-2">{prefix}</span>
+                                                <div className="border-2 border-black w-[1cm] h-[1cm]"></div>
+                                                <div className="border-2 border-black w-[1cm] h-[1cm]"></div>
+                                            </div>
+                                        );
+                                    }
+                                    return (
+                                        <div key={item.id} className="flex items-center break-inside-avoid">
+                                            <span className="mr-2 w-8 text-right font-mono text-lg font-bold">{globalIndex}.</span>
+                                            {content}
                                         </div>
                                     )
                                 })}

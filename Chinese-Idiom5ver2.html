@@ -2577,7 +2577,7 @@
                         </div>
                         <div className="flex-1 overflow-auto bg-white p-0">
                             <table className="w-full text-left border-collapse prose-table">
-                                <thead className="bg-purple-50 sticky top-0 z-10 shadow-sm text-lg"><tr><th className="p-2 text-center w-12">收藏</th><th className="p-2 text-center w-12">編號</th><th className="p-4 w-64 text-xl">成語名稱</th><th className="p-4 text-xl">釋義</th><th className="p-4 w-96 text-xl">應用範例</th></tr></thead>
+                                <thead className="bg-purple-50 sticky top-0 z-10 shadow-sm text-lg"><tr><th className="p-2 text-center w-12">收藏</th><th className="p-2 text-center w-12">編號</th><th className="p-4 w-48 text-xl">成語名稱</th><th className="p-4 text-xl">釋義</th><th className="p-4 w-96 text-xl">應用範例</th></tr></thead>
                                 <tbody className="divide-y divide-gray-100">{filteredItems.map(item => (<tr key={item.id} className="hover:bg-purple-50/50 transition-colors"><td className="p-2 text-center"><button onClick={() => toggleFavorite(item.id)}><Icon path={icons.heart} className={`w-6 h-6 ${favorites.includes(item.id) ? "text-red-500" : "text-gray-300 hover:text-red-400"}`} fill={favorites.includes(item.id) ? "currentColor" : "none"} /></button></td><td className="p-2 text-center font-mono text-gray-500 text-lg">{item.id}</td><td className="p-4 font-bold text-gray-900 text-xl md:text-2xl">{item.term}</td><td className="p-4 text-gray-600 text-lg md:text-xl">{item.definition}</td><td className="p-4 text-gray-500 italic text-lg md:text-xl">{item.sentence1}</td></tr>))}</tbody>
                             </table>
                         </div>

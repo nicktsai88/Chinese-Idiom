@@ -743,9 +743,11 @@
                             <div className="grid grid-cols-2 gap-x-16 gap-y-6 flex-1 content-start">
                                 {chunk.map((item, idx) => {
                                     const globalIndex = pageIndex * chunkSize + idx + 1;
-                                    const term = item.term;
-                                    const prefixLength = Math.max(0, term.length - 2);
-                                    const prefix = term.substring(0, prefixLength);
+                                    // 1. 取消所有全形或半形括號 () （） 內的補充資料，並去除多餘空白
+                                    const cleanTerm = item.term.replace(/（.*?）|\(.*?\)/g, '').trim();
+                                    // 2. 截取前面的文字（扣除最後兩個字）
+                                    const prefixLength = Math.max(0, cleanTerm.length - 2);
+                                    const prefix = cleanTerm.substring(0, prefixLength);
                                     
                                     return (
                                         <div key={item.id} className="flex items-start break-inside-avoid w-full">

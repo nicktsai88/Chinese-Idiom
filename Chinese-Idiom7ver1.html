@@ -658,6 +658,7 @@ let IDIOM_DATA = [
             { id: 442, term: "鸚鵡學舌", definition: "成語。鸚鵡學人說話。比喻人沒有自己的主見，只會盲目地模仿別人說話。", sentence1: "學習外語不能只靠鸚鵡學舌，要了解其中的文法和文化背景。", sentence2: "他的論點只是鸚鵡學舌，毫無自己的見解。", scene: "鸚鵡學人說話。比喻人沒有自己的主見，只會盲目地模仿別人說話。" },
             { id: 443, term: "鬱卒", definition: "詞語 (閩南語)。心情苦悶、憂鬱、不舒暢。", sentence1: "考試考差了，他整天都悶悶不樂，十分鬱卒。", sentence2: "遇到挫折難免會感到鬱卒，但千萬不要放棄希望。", scene: "心情苦悶、憂鬱、不舒暢。" }
         ];
+
         // --- Icons ---
         const icons = {
             check: <polyline points="20 6 9 17 4 12" />,
@@ -824,17 +825,8 @@ let IDIOM_DATA = [
                                     const globalIndex = pageIndex * chunkSize + idx + 1;
                                     // 1. 取消所有全形或半形括號 () （） 內的補充資料，並去除多餘空白
                                     const cleanTerm = item.term.replace(/（.*?）|\(.*?\)/g, '').trim();
-                                    
-                                    // 2. 動態判斷字數：大於2字則扣除最後2字並顯示2個格子；若只有2字，則顯示1字並保留1個格子
-                                    let prefixLength = Math.max(0, cleanTerm.length - 2);
-                                    let boxCount = 2;
-                                    if (cleanTerm.length === 2) {
-                                        prefixLength = 1;
-                                        boxCount = 1;
-                                    } else if (cleanTerm.length === 1) {
-                                        prefixLength = 0;
-                                        boxCount = 1;
-                                    }
+                                    // 2. 截取前面的文字（扣除最後兩個字）
+                                    const prefixLength = Math.max(0, cleanTerm.length - 2);
                                     const prefix = cleanTerm.substring(0, prefixLength);
                                     
                                     return (
@@ -843,9 +835,8 @@ let IDIOM_DATA = [
                                             <div className="flex flex-wrap items-end gap-x-1 gap-y-1 flex-1">
                                                 <span className="font-serif text-lg tracking-widest leading-relaxed">{prefix}</span>
                                                 <div className="flex gap-1 shrink-0 pb-1">
-                                                    {Array.from({ length: boxCount }).map((_, i) => (
-                                                        <div key={i} className="border-2 border-black w-[0.9cm] h-[0.9cm]"></div>
-                                                    ))}
+                                                    <div className="border-2 border-black w-[0.9cm] h-[0.9cm]"></div>
+                                                    <div className="border-2 border-black w-[0.9cm] h-[0.9cm]"></div>
                                                 </div>
                                             </div>
                                         </div>

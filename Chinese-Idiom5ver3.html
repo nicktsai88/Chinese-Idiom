@@ -739,7 +739,7 @@
     term: "明辨是非",
     definition: "清楚地辨別對錯。",
     sentence1: "一個人若沒有智慧，如何明辨是非？",
-    sentence2: "教育的重要功能之一，幾教導學生明辨是非。",
+    sentence2: "教育的重要功能之一，就是教導學生明辨是非。",
     scene: "清楚分辨對錯與真假。"
   },
   {
@@ -2196,32 +2196,27 @@
                                 {chunk.map((item, idx) => {
                                     const globalIndex = pageIndex * chunkSize + idx + 1;
                                     let content;
-                                    let prefix = "";
-                                    let boxCount = 0;
-                                    
-                                    // 統一邏輯：小於等於 2 個字挖 1 格，大於 2 個字挖 2 格
-                                    if (item.term.length <= 2) {
-                                        prefix = item.term.substring(0, 1);
-                                        boxCount = 1;
-                                    } else {
-                                        prefix = item.term.substring(0, item.term.length - 2);
-                                        boxCount = 2;
-                                    }
-                                    
-                                    content = (
-                                        <div className="flex items-center gap-1 flex-wrap">
-                                            <span className="font-serif text-xl tracking-widest mr-1 leading-relaxed">{prefix}</span>
-                                            <div className="flex items-center gap-1">
-                                                {Array.from({ length: boxCount }).map((_, i) => (
-                                                    <div key={i} className="border-2 border-black w-[0.8cm] h-[0.8cm] flex-shrink-0"></div>
-                                                ))}
+                                    if (item.term.includes("，") || item.term.includes(",")) {
+                                        const parts = item.term.split(/，|,/);
+                                        content = (
+                                            <div className="flex items-end w-full">
+                                                <span className="font-serif text-xl tracking-widest whitespace-nowrap">{parts[0]}，</span>
+                                                <div className="border-b-2 border-black flex-1 min-w-[50px] ml-1"></div>
                                             </div>
-                                        </div>
-                                    );
-
+                                        );
+                                    } else {
+                                        const prefix = item.term.substring(0, 2);
+                                        content = (
+                                            <div className="flex items-center gap-1">
+                                                <span className="font-serif text-xl tracking-[0.5em] mr-2">{prefix}</span>
+                                                <div className="border-2 border-black w-[1cm] h-[1cm]"></div>
+                                                <div className="border-2 border-black w-[1cm] h-[1cm]"></div>
+                                            </div>
+                                        );
+                                    }
                                     return (
-                                        <div key={item.id} className="flex items-start break-inside-avoid">
-                                            <span className="mr-2 w-8 text-right font-mono text-lg font-bold mt-1">{globalIndex}.</span>
+                                        <div key={item.id} className="flex items-center break-inside-avoid">
+                                            <span className="mr-2 w-8 text-right font-mono text-lg font-bold">{globalIndex}.</span>
                                             {content}
                                         </div>
                                     )
